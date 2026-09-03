@@ -1,0 +1,72 @@
+produto java 
+
+public class Produto {
+
+    private String nome;
+    private double preco;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+}
+
+info gerais
+
+
+
+public interface InfoGerais {
+
+    public void exibeInformacoes();
+}
+
+livor java 
+
+
+
+public class Livro extends Produto {
+
+    private String autor;
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+}
+
+cd java 
+
+public class CD extends Produto implements InfoGerais {
+
+    private int numFaixas;
+
+    public int getNumFaixas() {
+        return numFaixas;
+    }
+
+    public void setNumFaixas(int numFaixas) {
+        this.numFaixas = numFaixas;
+    }
+
+    @Override
+    public void exibeInformacoes() {
+
+        System.out.println("Nome: " + getNome());
+        System.out.println("Preço: " + getPreco());
+        System.out.println("Número de faixas: " + numFaixas);
+    }
+}
