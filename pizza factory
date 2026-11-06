@@ -1,1 +1,319 @@
+public interface PizzaIngredientFactory {
 
+    Dough createDough();
+
+    Sauce createSauce();
+
+    Cheese createCheese();
+
+    Veggies[] createVeggies();
+
+    Pepperoni createPepperoni();
+
+    Clams createClam();
+}
+public interface Dough {
+}
+public interface Sauce {
+}
+public interface Cheese {
+}
+public interface Veggies {
+}
+public interface Pepperoni {
+}
+public interface Clams {
+}
+class ThinCrustDough implements Dough {
+    public String toString() {
+        return "Massa fina";
+    }
+}
+
+class ThickCrustDough implements Dough {
+    public String toString() {
+        return "Massa grossa estilo Chicago";
+    }
+}
+
+class MarinaraSauce implements Sauce {
+    public String toString() {
+        return "Molho marinara";
+    }
+}
+
+class PlumTomatoSauce implements Sauce {
+    public String toString() {
+        return "Molho de tomate italiano";
+    }
+}
+
+class ReggianoCheese implements Cheese {
+    public String toString() {
+        return "Queijo Reggiano";
+    }
+}
+
+class MozzarellaCheese implements Cheese {
+    public String toString() {
+        return "Queijo Mussarela";
+    }
+}
+
+class Garlic implements Veggies {
+    public String toString() {
+        return "Alho";
+    }
+}
+
+class Onion implements Veggies {
+    public String toString() {
+        return "Cebola";
+    }
+}
+
+class Mushroom implements Veggies {
+    public String toString() {
+        return "Cogumelo";
+    }
+}
+
+class RedPepper implements Veggies {
+    public String toString() {
+        return "Pimentão vermelho";
+    }
+}
+
+class BlackOlives implements Veggies {
+    public String toString() {
+        return "Azeitonas pretas";
+    }
+}
+
+class Spinach implements Veggies {
+    public String toString() {
+        return "Espinafre";
+    }
+}
+
+class Eggplant implements Veggies {
+    public String toString() {
+        return "Berinjela";
+    }
+}
+
+class SlicedPepperoni implements Pepperoni {
+    public String toString() {
+        return "Pepperoni fatiado";
+    }
+}
+
+class FreshClams implements Clams {
+    public String toString() {
+        return "Mariscos frescos";
+    }
+}
+
+class FrozenClams implements Clams {
+    public String toString() {
+        return "Mariscos congelados";
+    }
+}
+public class NYPizzaIngredientFactory
+        implements PizzaIngredientFactory {
+
+    public Dough createDough() {
+        return new ThinCrustDough();
+    }
+
+    public Sauce createSauce() {
+        return new MarinaraSauce();
+    }
+
+    public Cheese createCheese() {
+        return new ReggianoCheese();
+    }
+
+    public Veggies[] createVeggies() {
+        Veggies[] veggies = {
+            new Garlic(),
+            new Onion(),
+            new Mushroom(),
+            new RedPepper()
+        };
+
+        return veggies;
+    }
+
+    public Pepperoni createPepperoni() {
+        return new SlicedPepperoni();
+    }
+
+    public Clams createClam() {
+        return new FreshClams();
+    }
+}
+public class ChicagoPizzaIngredientFactory
+        implements PizzaIngredientFactory {
+
+    public Dough createDough() {
+        return new ThickCrustDough();
+    }
+
+    public Sauce createSauce() {
+        return new PlumTomatoSauce();
+    }
+
+    public Cheese createCheese() {
+        return new MozzarellaCheese();
+    }
+
+    public Veggies[] createVeggies() {
+        Veggies[] veggies = {
+            new BlackOlives(),
+            new Spinach(),
+            new Eggplant()
+        };
+
+        return veggies;
+    }
+
+    public Pepperoni createPepperoni() {
+        return new SlicedPepperoni();
+    }
+
+    public Clams createClam() {
+        return new FrozenClams();
+    }
+}
+public abstract class Pizza {
+
+    String name;
+
+    Dough dough;
+    Sauce sauce;
+    Cheese cheese;
+
+    Veggies[] veggies;
+    Pepperoni pepperoni;
+    Clams clam;
+
+    public abstract void prepare();
+
+    public void bake() {
+        System.out.println("Assando por 25 minutos a 180 graus.");
+    }
+
+    public void cut() {
+        System.out.println("Cortando a pizza em fatias.");
+    }
+
+    public void box() {
+        System.out.println("Colocando a pizza na caixa.");
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String toString() {
+        return name;
+    }
+}
+public class CheesePizza extends Pizza {
+
+    PizzaIngredientFactory ingredientFactory;
+
+    public CheesePizza(
+            PizzaIngredientFactory ingredientFactory) {
+
+        this.ingredientFactory = ingredientFactory;
+    }
+
+    public void prepare() {
+
+        System.out.println("Preparando " + name);
+
+        dough = ingredientFactory.createDough();
+
+        sauce = ingredientFactory.createSauce();
+
+        cheese = ingredientFactory.createCheese();
+
+        System.out.println("Ingredientes:");
+
+        System.out.println(dough);
+        System.out.println(sauce);
+        System.out.println(cheese);
+    }
+}
+public class VeggiePizza extends Pizza {
+
+    PizzaIngredientFactory ingredientFactory;
+
+    public VeggiePizza(
+            PizzaIngredientFactory ingredientFactory) {
+
+        this.ingredientFactory = ingredientFactory;
+    }
+
+    public void prepare() {
+
+        System.out.println("Preparando " + name);
+
+        dough = ingredientFactory.createDough();
+
+        sauce = ingredientFactory.createSauce();
+
+        cheese = ingredientFactory.createCheese();
+
+        veggies = ingredientFactory.createVeggies();
+
+        System.out.println("Ingredientes:");
+
+        System.out.println(dough);
+        System.out.println(sauce);
+        System.out.println(cheese);
+
+        for (Veggies veggie : veggies) {
+            System.out.println(veggie);
+        }
+    }
+}
+public class VeggiePizza extends Pizza {
+
+    PizzaIngredientFactory ingredientFactory;
+
+    public VeggiePizza(
+            PizzaIngredientFactory ingredientFactory) {
+
+        this.ingredientFactory = ingredientFactory;
+    }
+
+    public void prepare() {
+
+        System.out.println("Preparando " + name);
+
+        dough = ingredientFactory.createDough();
+
+        sauce = ingredientFactory.createSauce();
+
+        cheese = ingredientFactory.createCheese();
+
+        veggies = ingredientFactory.createVeggies();
+
+        System.out.println("Ingredientes:");
+
+        System.out.println(dough);
+        System.out.println(sauce);
+        System.out.println(cheese);
+
+        for (Veggies veggie : veggies) {
+            System.out.println(veggie);
+        }
+    }
+}
